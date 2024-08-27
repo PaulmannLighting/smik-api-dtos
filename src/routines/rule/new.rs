@@ -43,8 +43,20 @@ impl Rule {
     }
 
     #[must_use]
+    pub fn with_events(mut self, events: impl AsRef<[Event]>) -> Self {
+        self.events.extend_from_slice(events.as_ref());
+        self
+    }
+
+    #[must_use]
     pub fn with_condition(mut self, condition: Condition) -> Self {
         self.conditions.push(condition);
+        self
+    }
+
+    #[must_use]
+    pub fn with_conditions(mut self, conditions: impl AsRef<[Condition]>) -> Self {
+        self.conditions.extend_from_slice(conditions.as_ref());
         self
     }
 
