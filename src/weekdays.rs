@@ -106,7 +106,7 @@ impl IterWeek for Weekday {
     }
 }
 
-#[derive(Debug, Clone, Eq, PartialEq)]
+#[derive(Debug, Eq, PartialEq)]
 pub struct WeekIterator {
     start: Weekday,
     next: Option<Weekday>,
