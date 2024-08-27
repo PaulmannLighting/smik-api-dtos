@@ -123,3 +123,9 @@ impl Areas {
         self
     }
 }
+
+impl From<u32> for Area {
+    fn from(id: u32) -> Self {
+        Self::new(id, None, None, None, None)
+    }
+}
