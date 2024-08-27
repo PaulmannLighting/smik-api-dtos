@@ -7,7 +7,7 @@ use std::hash::BuildHasher;
 use std::num::ParseIntError;
 use std::str::FromStr;
 
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Default, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Weekdays(u8);
 
 bitflags! {
@@ -22,10 +22,15 @@ bitflags! {
     }
 }
 
+impl Debug for Weekdays {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        HashSet::<Weekday>::from(*self).fmt(f)
+    }
+}
+
 impl Display for Weekdays {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        // For human readability we want a `HashSet<chrono::Weekday>` to be printed.
-        HashSet::<Weekday>::from(*self).fmt(f)
+        write!(f, "{:07b}", self.0)
     }
 }
 
@@ -100,7 +105,7 @@ impl Serialize for Weekdays {
     where
         S: serde::Serializer,
     {
-        serializer.serialize_str(&format!("{:07b}", self.0))
+        serializer.serialize_str(&self.to_string())
     }
 }
 
