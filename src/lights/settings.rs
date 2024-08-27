@@ -84,13 +84,8 @@ impl From<Light> for Settings {
 
 impl From<&Light> for Settings {
     fn from(light: &Light) -> Self {
-        Self::new(
-            Some(light.id()),
-            None,
-            None,
-            Some(light.state().clone()),
-            None,
-            None,
-        )
+        Self::default()
+            .with_id(light.id())
+            .with_state(light.state().clone())
     }
 }
