@@ -1,4 +1,5 @@
 mod action;
+pub mod existing;
 mod icon;
 mod light;
 pub mod new;
