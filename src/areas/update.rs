@@ -10,7 +10,7 @@ pub struct Area {
     icon: Option<Icon>,
     #[serde(skip_serializing_if = "Option::is_none")]
     action: Option<Action>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "clientId", skip_serializing_if = "Option::is_none")]
     client_id: Option<u32>,
 }
 
@@ -66,7 +66,7 @@ pub struct Areas {
     icon: Option<Icon>,
     #[serde(skip_serializing_if = "Option::is_none")]
     action: Option<Action>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "clientId", skip_serializing_if = "Option::is_none")]
     client_id: Option<u32>,
 }
 
