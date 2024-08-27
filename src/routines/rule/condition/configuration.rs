@@ -4,12 +4,11 @@ use crate::Weekdays;
 use chrono::Weekday;
 pub use kind::Kind;
 use serde::{Deserialize, Serialize};
-use std::collections::HashSet;
-use std::str::FromStr;
 
 #[derive(Clone, Debug, Default, Eq, Hash, PartialEq, Deserialize, Serialize)]
 pub struct Configuration {
-    days: String,
+    #[serde(rename = "days")]
+    weekdays: Weekdays,
     #[serde(rename = "nearLocation", skip_serializing_if = "Option::is_none")]
     near_location: Option<bool>,
     #[serde(rename = "eventType", skip_serializing_if = "Option::is_none")]
@@ -36,7 +35,7 @@ impl Configuration {
     #[allow(clippy::too_many_arguments)]
     #[must_use]
     pub const fn new(
-        days: String,
+        weekdays: Weekdays,
         near_location: Option<bool>,
         kind: Option<Kind>,
         offset: Option<u32>,
@@ -49,7 +48,7 @@ impl Configuration {
         end_brightness: Option<u32>,
     ) -> Self {
         Self {
-            days,
+            weekdays,
             near_location,
             kind,
             offset,
@@ -64,10 +63,8 @@ impl Configuration {
     }
 
     #[must_use]
-    pub fn weekdays(&self) -> HashSet<Weekday> {
-        Weekdays::from_str(&self.days)
-            .map(Weekdays::into)
-            .unwrap_or_default()
+    pub const fn weekdays(&self) -> Weekdays {
+        self.weekdays
     }
 
     #[must_use]
@@ -121,16 +118,8 @@ impl Configuration {
     }
 
     #[must_use]
-    pub fn with_weekdays(self, weekdays: &[Weekday]) -> Self {
-        self.with_weekday_mask(weekdays.into())
-    }
-
-    fn with_weekday_mask(self, mask: Weekdays) -> Self {
-        self.with_days(mask.to_string())
-    }
-
-    fn with_days(mut self, days: String) -> Self {
-        self.days = days;
+    pub fn with_weekdays(mut self, weekdays: impl Into<Weekdays>) -> Self {
+        self.weekdays = weekdays.into();
         self
     }
 }
