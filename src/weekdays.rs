@@ -108,6 +108,7 @@ impl<'de> Deserialize<'de> for Weekdays {
     where
         D: serde::Deserializer<'de>,
     {
-        Self::from_str(&String::deserialize(deserializer)?).map_err(serde::de::Error::custom)
+        String::deserialize(deserializer)
+            .and_then(|string| Self::from_str(&string).map_err(serde::de::Error::custom))
     }
 }
