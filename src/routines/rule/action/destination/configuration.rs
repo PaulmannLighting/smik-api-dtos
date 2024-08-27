@@ -16,3 +16,15 @@ impl Configuration {
         self.id
     }
 }
+
+impl From<u32> for Configuration {
+    fn from(id: u32) -> Self {
+        Self { id }
+    }
+}
+
+impl From<Configuration> for u32 {
+    fn from(configuration: Configuration) -> Self {
+        configuration.id
+    }
+}
