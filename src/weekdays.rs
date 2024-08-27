@@ -24,6 +24,7 @@ bitflags! {
 
 impl Display for Weekdays {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        // For human readability we want a `HashSet<chrono::Weekday>` to be printed.
         HashSet::<Weekday>::from(*self).fmt(f)
     }
 }
