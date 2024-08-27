@@ -48,3 +48,15 @@ impl Area {
         &self.scenes
     }
 }
+
+impl From<String> for Area {
+    fn from(name: String) -> Self {
+        Self::new(name, None, Vec::new(), Vec::new())
+    }
+}
+
+impl From<&str> for Area {
+    fn from(name: &str) -> Self {
+        Self::from(name.to_string())
+    }
+}
