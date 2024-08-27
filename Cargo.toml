@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-bitflags = "2.6.0"
-chrono = "0.4.38"
-log = "0.4.22"
+bitflags = "2.6"
+chrono = "0.4"
+log = "0.4"
 serde = { version = "1.0", features = ["derive"] }
-serde_repr = "0.1.19"
+serde_repr = "0.1"
