@@ -6,7 +6,7 @@ pub use destination::Destination;
 pub mod behavior;
 pub mod destination;
 
-#[derive(Clone, Debug, Default, Eq, Hash, PartialEq, Deserialize, Serialize)]
+#[derive(Clone, Debug, Eq, Hash, PartialEq, Deserialize, Serialize)]
 pub struct Action {
     destination: Destination,
     #[serde(rename = "behaviour")]

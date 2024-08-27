@@ -6,7 +6,7 @@ pub use kind::Kind;
 pub mod configuration;
 mod kind;
 
-#[derive(Clone, Debug, Default, Eq, Hash, PartialEq, Deserialize, Serialize)]
+#[derive(Clone, Debug, Eq, Hash, PartialEq, Deserialize, Serialize)]
 pub struct Behavior {
     #[serde(rename = "type")]
     kind: Kind,
