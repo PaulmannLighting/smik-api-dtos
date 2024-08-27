@@ -6,4 +6,4 @@ pub mod scenes;
 mod utils;
 mod weekdays;
 
-pub use weekdays::{IterWeek, Weekdays};
+pub use weekdays::Weekdays;

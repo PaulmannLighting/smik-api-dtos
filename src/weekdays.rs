@@ -58,14 +58,30 @@ impl From<&[Weekday]> for Weekdays {
     }
 }
 
+impl TryFrom<Weekdays> for Weekday {
+    type Error = &'static str;
+
+    fn try_from(mask: Weekdays) -> Result<Self, Self::Error> {
+        match mask {
+            Weekdays::Mon => Ok(Self::Mon),
+            Weekdays::Tue => Ok(Self::Tue),
+            Weekdays::Wed => Ok(Self::Wed),
+            Weekdays::Thu => Ok(Self::Thu),
+            Weekdays::Fri => Ok(Self::Fri),
+            Weekdays::Sat => Ok(Self::Sat),
+            Weekdays::Sun => Ok(Self::Sun),
+            _ => Err("Invalid mask"),
+        }
+    }
+}
+
 impl<H> From<Weekdays> for HashSet<Weekday, H>
 where
     H: Default + BuildHasher,
 {
     fn from(mask: Weekdays) -> Self {
-        Weekday::Mon
-            .iter_week()
-            .filter(|&weekday| mask & weekday.into() != Weekdays::empty())
+        mask.iter()
+            .filter_map(|mask| mask.try_into().ok())
             .collect()
     }
 }
@@ -93,46 +109,5 @@ impl<'de> Deserialize<'de> for Weekdays {
         D: serde::Deserializer<'de>,
     {
         Self::from_str(&String::deserialize(deserializer)?).map_err(serde::de::Error::custom)
-    }
-}
-
-pub trait IterWeek {
-    fn iter_week(self) -> WeekIterator;
-}
-
-impl IterWeek for Weekday {
-    fn iter_week(self) -> WeekIterator {
-        WeekIterator::new(self)
-    }
-}
-
-#[derive(Debug, Eq, PartialEq)]
-pub struct WeekIterator {
-    start: Weekday,
-    next: Option<Weekday>,
-}
-
-impl WeekIterator {
-    #[must_use]
-    pub const fn new(start: Weekday) -> Self {
-        Self { start, next: None }
-    }
-}
-
-impl Iterator for WeekIterator {
-    type Item = Weekday;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        if let Some(next) = self.next {
-            if next == self.start {
-                None
-            } else {
-                self.next.replace(next.succ());
-                Some(next)
-            }
-        } else {
-            self.next.replace(self.start.succ());
-            Some(self.start)
-        }
     }
 }
