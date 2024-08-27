@@ -33,6 +33,11 @@ impl Area {
     }
 
     #[must_use]
+    pub const fn id(&self) -> u32 {
+        self.id
+    }
+
+    #[must_use]
     pub fn with_name(mut self, name: String) -> Self {
         self.name = Some(name);
         self
