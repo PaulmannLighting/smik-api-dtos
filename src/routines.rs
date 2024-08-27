@@ -1,3 +1,4 @@
+pub mod existing;
 mod icon;
 mod kind;
 pub mod new;
