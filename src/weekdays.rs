@@ -2,7 +2,7 @@ use bitflags::bitflags;
 use chrono::Weekday;
 use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
-use std::fmt::{Display, Formatter};
+use std::fmt::{Debug, Display, Formatter};
 use std::hash::BuildHasher;
 use std::num::ParseIntError;
 use std::str::FromStr;
@@ -24,7 +24,7 @@ bitflags! {
 
 impl Display for Weekdays {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{:07b}", self.0)
+        Into::<HashSet<Weekday>>::into(*self).fmt(f)
     }
 }
 
