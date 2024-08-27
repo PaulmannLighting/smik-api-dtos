@@ -99,7 +99,7 @@ impl Serialize for Weekdays {
     where
         S: serde::Serializer,
     {
-        serializer.serialize_str(&self.to_string())
+        serializer.serialize_str(&format!("{:07b}", self.0))
     }
 }
 
