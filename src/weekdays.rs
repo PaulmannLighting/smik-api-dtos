@@ -24,7 +24,7 @@ bitflags! {
 
 impl Display for Weekdays {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        Into::<HashSet<Weekday>>::into(*self).fmt(f)
+        HashSet::<Weekday>::from(*self).fmt(f)
     }
 }
 
