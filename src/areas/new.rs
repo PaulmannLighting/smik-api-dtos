@@ -47,6 +47,36 @@ impl Area {
     pub fn scenes(&self) -> &[Scene] {
         &self.scenes
     }
+
+    #[must_use]
+    pub const fn with_icon(mut self, icon: Icon) -> Self {
+        self.icon = Some(icon);
+        self
+    }
+
+    #[must_use]
+    pub fn with_light(mut self, light: Light) -> Self {
+        self.lights.push(light);
+        self
+    }
+
+    #[must_use]
+    pub fn with_lights(mut self, lights: impl AsRef<[Light]>) -> Self {
+        self.lights.extend_from_slice(lights.as_ref());
+        self
+    }
+
+    #[must_use]
+    pub fn with_scene(mut self, scene: Scene) -> Self {
+        self.scenes.push(scene);
+        self
+    }
+
+    #[must_use]
+    pub fn with_scenes(mut self, scenes: impl AsRef<[Scene]>) -> Self {
+        self.scenes.extend_from_slice(scenes.as_ref());
+        self
+    }
 }
 
 impl From<String> for Area {
