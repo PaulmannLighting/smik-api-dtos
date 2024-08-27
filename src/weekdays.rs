@@ -1,5 +1,6 @@
 use bitflags::bitflags;
 use chrono::Weekday;
+use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
 use std::fmt::{Display, Formatter};
 use std::hash::BuildHasher;
@@ -74,6 +75,24 @@ impl FromStr for Weekdays {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         u8::from_str_radix(s, 2).map(Self)
+    }
+}
+
+impl Serialize for Weekdays {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(&self.to_string())
+    }
+}
+
+impl<'de> Deserialize<'de> for Weekdays {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        Self::from_str(&String::deserialize(deserializer)?).map_err(serde::de::Error::custom)
     }
 }
 
