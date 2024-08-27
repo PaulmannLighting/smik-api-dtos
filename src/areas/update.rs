@@ -1,7 +1,7 @@
 use super::{Action, Icon};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, Default, Eq, PartialEq, Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, Deserialize, Serialize)]
 pub struct Areas {
     area_ids: Vec<u32>,
     #[serde(skip_serializing_if = "Option::is_none")]
