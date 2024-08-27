@@ -100,6 +100,14 @@ impl FromStr for Weekdays {
     }
 }
 
+impl TryFrom<String> for Weekdays {
+    type Error = ParseIntError;
+
+    fn try_from(string: String) -> Result<Self, Self::Error> {
+        Self::from_str(&string)
+    }
+}
+
 impl Serialize for Weekdays {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -115,6 +123,6 @@ impl<'de> Deserialize<'de> for Weekdays {
         D: serde::Deserializer<'de>,
     {
         String::deserialize(deserializer)
-            .and_then(|string| Self::from_str(&string).map_err(serde::de::Error::custom))
+            .and_then(|string| string.try_into().map_err(serde::de::Error::custom))
     }
 }
