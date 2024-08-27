@@ -60,7 +60,7 @@ impl From<&[Weekday]> for Weekdays {
 }
 
 impl TryFrom<Weekdays> for Weekday {
-    type Error = &'static str;
+    type Error = ();
 
     fn try_from(mask: Weekdays) -> Result<Self, Self::Error> {
         match mask {
@@ -71,7 +71,7 @@ impl TryFrom<Weekdays> for Weekday {
             Weekdays::Fri => Ok(Self::Fri),
             Weekdays::Sat => Ok(Self::Sat),
             Weekdays::Sun => Ok(Self::Sun),
-            _ => Err("Invalid mask"),
+            _ => Err(()),
         }
     }
 }
