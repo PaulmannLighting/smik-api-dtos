@@ -5,7 +5,7 @@ use crate::utils::parse_date_time;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, Default, Eq, Hash, PartialEq, Deserialize, Serialize)]
+#[derive(Clone, Debug, Eq, Hash, PartialEq, Deserialize, Serialize)]
 pub struct Routine {
     id: u32,
     #[serde(rename = "sensorId", skip_serializing_if = "Option::is_none")]
