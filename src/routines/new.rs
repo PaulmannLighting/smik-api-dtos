@@ -3,35 +3,35 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Deserialize, Serialize)]
 pub struct Routine {
-    #[serde(rename = "sensorId", skip_serializing_if = "Option::is_none")]
-    sensor_id: Option<u32>,
-    name: String,
     #[serde(rename = "type")]
     kind: Kind,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    icon: Option<Icon>,
+    name: String,
     #[serde(rename = "isActive")]
     is_active: bool,
     rules: Vec<Rule>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    icon: Option<Icon>,
+    #[serde(rename = "sensorId", skip_serializing_if = "Option::is_none")]
+    sensor_id: Option<u32>,
 }
 
 impl Routine {
     #[must_use]
     pub const fn new(
-        sensor_id: Option<u32>,
-        name: String,
         kind: Kind,
-        icon: Option<Icon>,
+        name: String,
         is_active: bool,
         rules: Vec<Rule>,
+        icon: Option<Icon>,
+        sensor_id: Option<u32>,
     ) -> Self {
         Self {
-            sensor_id,
-            name,
             kind,
-            icon,
+            name,
             is_active,
             rules,
+            icon,
+            sensor_id,
         }
     }
 
