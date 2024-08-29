@@ -11,7 +11,7 @@ pub struct Light {
     #[serde(skip_serializing_if = "Option::is_none")]
     icon: Option<Icon>,
     #[serde(rename = "type")]
-    kind: Kind,
+    kind: Option<Kind>,
     min: u32,
     max: u32,
     manufacturer: String,
@@ -25,7 +25,7 @@ impl Light {
         id: u32,
         name: String,
         icon: Option<Icon>,
-        kind: Kind,
+        kind: Option<Kind>,
         min: u32,
         max: u32,
         manufacturer: String,
@@ -59,7 +59,7 @@ impl Light {
     }
 
     #[must_use]
-    pub const fn kind(&self) -> Kind {
+    pub const fn kind(&self) -> Option<Kind> {
         self.kind
     }
 
