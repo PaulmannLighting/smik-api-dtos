@@ -1,4 +1,4 @@
-use super::{Icon, Light, Scene};
+use super::Icon;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Deserialize, Serialize)]
@@ -6,26 +6,13 @@ pub struct Area {
     name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     icon: Option<Icon>,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    lights: Vec<Light>,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    scenes: Vec<Scene>,
+    lights: Vec<u32>,
 }
 
 impl Area {
     #[must_use]
-    pub const fn new(
-        name: String,
-        icon: Option<Icon>,
-        lights: Vec<Light>,
-        scenes: Vec<Scene>,
-    ) -> Self {
-        Self {
-            name,
-            icon,
-            lights,
-            scenes,
-        }
+    pub const fn new(name: String, icon: Option<Icon>, lights: Vec<u32>) -> Self {
+        Self { name, icon, lights }
     }
 
     #[must_use]
@@ -39,13 +26,8 @@ impl Area {
     }
 
     #[must_use]
-    pub fn lights(&self) -> &[Light] {
+    pub fn lights(&self) -> &[u32] {
         &self.lights
-    }
-
-    #[must_use]
-    pub fn scenes(&self) -> &[Scene] {
-        &self.scenes
     }
 
     #[must_use]
@@ -55,33 +37,21 @@ impl Area {
     }
 
     #[must_use]
-    pub fn with_light(mut self, light: Light) -> Self {
+    pub fn with_light(mut self, light: u32) -> Self {
         self.lights.push(light);
         self
     }
 
     #[must_use]
-    pub fn with_lights(mut self, lights: impl AsRef<[Light]>) -> Self {
-        self.lights.extend_from_slice(lights.as_ref());
-        self
-    }
-
-    #[must_use]
-    pub fn with_scene(mut self, scene: Scene) -> Self {
-        self.scenes.push(scene);
-        self
-    }
-
-    #[must_use]
-    pub fn with_scenes(mut self, scenes: impl AsRef<[Scene]>) -> Self {
-        self.scenes.extend_from_slice(scenes.as_ref());
+    pub fn with_lights(mut self, lights: &[u32]) -> Self {
+        self.lights.extend_from_slice(lights);
         self
     }
 }
 
 impl From<String> for Area {
     fn from(name: String) -> Self {
-        Self::new(name, None, Vec::new(), Vec::new())
+        Self::new(name, None, Vec::new())
     }
 }
 
