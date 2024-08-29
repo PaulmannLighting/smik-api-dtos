@@ -122,6 +122,12 @@ impl Configuration {
         self.weekdays = weekdays.into();
         self
     }
+
+    #[must_use]
+    pub const fn with_fade_duration(mut self, fade_duration: i64) -> Self {
+        self.fade_duration = Some(fade_duration);
+        self
+    }
 }
 
 impl From<&[Weekday]> for Configuration {
