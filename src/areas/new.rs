@@ -6,6 +6,7 @@ pub struct Area {
     name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     icon: Option<Icon>,
+    #[serde(rename = "ids")]
     lights: Vec<u32>,
 }
 
