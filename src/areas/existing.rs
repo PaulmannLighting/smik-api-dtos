@@ -1,4 +1,5 @@
-use super::{Icon, Light, Scene};
+use super::{Icon, Scene};
+use crate::lights::details::Light;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Deserialize, Serialize)]

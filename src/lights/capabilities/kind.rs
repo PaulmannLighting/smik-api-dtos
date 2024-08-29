@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
+#[derive(Debug, Clone, Eq, Hash, PartialEq, Deserialize, Serialize)]
 pub enum Kind {
     #[serde(rename = "rgbw")]
     Rgbw,

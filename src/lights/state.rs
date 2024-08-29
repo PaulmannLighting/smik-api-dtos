@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 pub use crate::color::Rgb;
 
-#[derive(Debug, Default, Clone, PartialEq, Eq, Deserialize, Serialize)]
+#[derive(Debug, Default, Clone, Eq, Hash, PartialEq, Deserialize, Serialize)]
 pub struct State {
     #[serde(skip_serializing_if = "Option::is_none")]
     on: Option<bool>,
