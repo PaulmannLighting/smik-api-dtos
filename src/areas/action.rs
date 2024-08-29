@@ -6,12 +6,12 @@ pub struct Action {
     on: bool,
     brightness: u8,
     color: Rgb,
-    color_temperature: u16,
+    color_temperature: u8,
 }
 
 impl Action {
     #[must_use]
-    pub const fn new(on: bool, brightness: u8, color: Rgb, color_temperature: u16) -> Self {
+    pub const fn new(on: bool, brightness: u8, color: Rgb, color_temperature: u8) -> Self {
         Self {
             on,
             brightness,
@@ -36,7 +36,7 @@ impl Action {
     }
 
     #[must_use]
-    pub const fn color_temperature(&self) -> u16 {
+    pub const fn color_temperature(&self) -> u8 {
         self.color_temperature
     }
 }

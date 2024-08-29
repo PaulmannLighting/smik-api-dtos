@@ -13,7 +13,7 @@ pub struct State {
     #[serde(skip_serializing_if = "Option::is_none")]
     color: Option<Rgb>,
     #[serde(rename = "colorTemperature", skip_serializing_if = "Option::is_none")]
-    color_temperature: Option<u16>,
+    color_temperature: Option<u8>,
 }
 
 impl State {
@@ -23,7 +23,7 @@ impl State {
         reachable: Option<bool>,
         brightness: Option<u8>,
         color: Option<Rgb>,
-        color_temperature: Option<u16>,
+        color_temperature: Option<u8>,
     ) -> Self {
         Self {
             on,
@@ -55,7 +55,7 @@ impl State {
     }
 
     #[must_use]
-    pub const fn color_temperature(&self) -> Option<u16> {
+    pub const fn color_temperature(&self) -> Option<u8> {
         self.color_temperature
     }
 
@@ -84,7 +84,7 @@ impl State {
     }
 
     #[must_use]
-    pub const fn with_color_temperature(mut self, color_temperature: u16) -> Self {
+    pub const fn with_color_temperature(mut self, color_temperature: u8) -> Self {
         self.color_temperature = Some(color_temperature);
         self
     }
