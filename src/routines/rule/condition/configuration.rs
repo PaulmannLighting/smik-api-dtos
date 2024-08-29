@@ -24,7 +24,7 @@ pub struct Configuration {
     #[serde(rename = "endTemperature", skip_serializing_if = "Option::is_none")]
     end_temperature: Option<u32>,
     #[serde(rename = "fadeDuration", skip_serializing_if = "Option::is_none")]
-    fade_duration: Option<u32>,
+    fade_duration: Option<i64>,
     #[serde(rename = "startBrightness", skip_serializing_if = "Option::is_none")]
     start_brightness: Option<u32>,
     #[serde(rename = "endBrightness", skip_serializing_if = "Option::is_none")]
@@ -43,7 +43,7 @@ impl Configuration {
         unit: Option<String>,
         start_temperature: Option<u32>,
         end_temperature: Option<u32>,
-        fade_duration: Option<u32>,
+        fade_duration: Option<i64>,
         start_brightness: Option<u32>,
         end_brightness: Option<u32>,
     ) -> Self {
@@ -103,7 +103,7 @@ impl Configuration {
     }
 
     #[must_use]
-    pub const fn fade_duration(&self) -> Option<u32> {
+    pub const fn fade_duration(&self) -> Option<i64> {
         self.fade_duration
     }
 
