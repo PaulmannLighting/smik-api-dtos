@@ -19,6 +19,8 @@ bitflags! {
         const Fri = 0b0000_0100;
         const Sat = 0b0000_0010;
         const Sun = 0b0000_0001;
+        const ALL = 0b0111_1111;
+        const NONE = 0b0000_0000;
     }
 }
 
