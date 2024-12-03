@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 pub use crate::color::Rgb;
+use crate::Percent;
 
 #[derive(Debug, Default, Clone, Eq, Hash, PartialEq, Deserialize, Serialize)]
 pub struct State {
@@ -18,19 +19,19 @@ pub struct State {
 
 impl State {
     #[must_use]
-    pub const fn new(
+    pub fn new(
         on: Option<bool>,
         reachable: Option<bool>,
-        brightness: Option<u8>,
+        brightness: Option<Percent>,
         color: Option<Rgb>,
-        color_temperature: Option<u8>,
+        color_temperature: Option<Percent>,
     ) -> Self {
         Self {
             on,
             reachable,
-            brightness,
+            brightness: brightness.map(Percent::into_inner),
             color,
-            color_temperature,
+            color_temperature: color_temperature.map(Percent::into_inner),
         }
     }
 
@@ -44,9 +45,15 @@ impl State {
         self.reachable
     }
 
-    #[must_use]
-    pub const fn brightness(&self) -> Option<u8> {
+    /// Returns the brightness as a percentage.
+    ///
+    /// # Errors
+    ///
+    /// Returns `Err(None)` if the brightness is not set
+    /// or `Err(Some(u8))` if the brightness is not a valid percentage.
+    pub fn brightness(&self) -> Result<Percent, Option<u8>> {
         self.brightness
+            .map_or_else(|| Err(None), |v| Percent::try_from(v).map_err(Some))
     }
 
     #[must_use]
@@ -54,9 +61,15 @@ impl State {
         self.color.as_ref()
     }
 
-    #[must_use]
-    pub const fn color_temperature(&self) -> Option<u8> {
+    /// Returns the color temperature as a percentage.
+    ///
+    /// # Errors
+    ///
+    /// Returns `Err(None)` if the color temperature is not set
+    /// or `Err(Some(u8))` if the color temperature is not a valid percentage.
+    pub fn color_temperature(&self) -> Result<Percent, Option<u8>> {
         self.color_temperature
+            .map_or_else(|| Err(None), |v| Percent::try_from(v).map_err(Some))
     }
 
     #[must_use]
@@ -72,8 +85,8 @@ impl State {
     }
 
     #[must_use]
-    pub const fn with_brightness(mut self, brightness: u8) -> Self {
-        self.brightness = Some(brightness);
+    pub const fn with_brightness(mut self, brightness: Percent) -> Self {
+        self.brightness = Some(brightness.into_inner());
         self
     }
 
@@ -84,8 +97,8 @@ impl State {
     }
 
     #[must_use]
-    pub const fn with_color_temperature(mut self, color_temperature: u8) -> Self {
-        self.color_temperature = Some(color_temperature);
+    pub const fn with_color_temperature(mut self, color_temperature: Percent) -> Self {
+        self.color_temperature = Some(color_temperature.into_inner());
         self
     }
 }
