@@ -6,7 +6,7 @@ use crate::color::{Mode, Rgb};
 #[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
 pub struct Attributes {
     #[serde(rename = "deviceType")]
-    typ: String,
+    typ: Option<String>,
     min: i32,
     max: i32,
     on: bool,
@@ -28,8 +28,8 @@ pub struct Attributes {
 
 impl Attributes {
     #[must_use]
-    pub fn typ(&self) -> &str {
-        &self.typ
+    pub fn typ(&self) -> Option<&str> {
+        self.typ.as_deref()
     }
 
     #[must_use]
