@@ -28,3 +28,11 @@ impl Rgb {
         self.blue
     }
 }
+
+#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, Ord, PartialOrd, Deserialize, Serialize)]
+pub enum Mode {
+    #[serde(rename = "RGB")]
+    Rgb,
+    #[serde(rename = "CT")]
+    Ct,
+}

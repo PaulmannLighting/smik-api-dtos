@@ -6,5 +6,6 @@ pub mod routines;
 pub mod scenes;
 mod utils;
 mod weekdays;
+pub mod zigbee;
 
 pub use weekdays::Weekdays;
