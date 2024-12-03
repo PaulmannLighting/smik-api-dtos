@@ -16,6 +16,14 @@ impl Percent {
         }
     }
 
+    /// # Safety
+    ///
+    /// `value` must be in the range `0..=100`.
+    #[must_use]
+    pub const unsafe fn new_unchecked(value: u8) -> Self {
+        Self(value)
+    }
+
     #[must_use]
     pub const fn into_inner(self) -> u8 {
         self.0
