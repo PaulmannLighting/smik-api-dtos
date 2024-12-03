@@ -6,6 +6,7 @@ pub struct Percent(u8);
 impl Percent {
     pub const MIN: Self = Self(0);
     pub const MAX: Self = Self(100);
+    pub const MAX_104: Self = Self(104);
 
     #[must_use]
     pub const fn new(value: u8) -> Option<Self> {
