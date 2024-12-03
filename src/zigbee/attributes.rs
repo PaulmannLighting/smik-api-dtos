@@ -7,8 +7,8 @@ use crate::color::{Mode, Rgb};
 pub struct Attributes {
     #[serde(rename = "deviceType")]
     typ: Option<String>,
-    min: i32,
-    max: i32,
+    min: u16,
+    max: u16,
     on: bool,
     brightness: Option<u8>,
     color: Option<Rgb>,
@@ -33,12 +33,12 @@ impl Attributes {
     }
 
     #[must_use]
-    pub const fn min(&self) -> i32 {
+    pub const fn min(&self) -> u16 {
         self.min
     }
 
     #[must_use]
-    pub const fn max(&self) -> i32 {
+    pub const fn max(&self) -> u16 {
         self.max
     }
 
