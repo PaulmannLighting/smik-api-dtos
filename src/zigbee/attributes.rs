@@ -13,7 +13,7 @@ pub struct Attributes {
     brightness: Option<u8>,
     color: Option<Rgb>,
     #[serde(rename = "colorTemperature")]
-    color_temperature: Option<u8>,
+    color_temperature: Option<u16>,
     #[serde(rename = "colorMode")]
     color_mode: Mode,
     #[serde(rename = "manufacturerName")]
@@ -58,7 +58,7 @@ impl Attributes {
     }
 
     #[must_use]
-    pub const fn color_temperature(&self) -> Option<u8> {
+    pub const fn color_temperature(&self) -> Option<u16> {
         self.color_temperature
     }
 
